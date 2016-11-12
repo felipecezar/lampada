@@ -52,6 +52,8 @@ function conectar(){
 //seleção de cor
 
 var img = new Image()
+img.crossOrigin = "anonymous";
+
 
 img.src = 'https://raw.githubusercontent.com/WebBluetoothCG/demos/gh-pages/playbulb-candle/color-wheel.png'
 img.onload = function() {
