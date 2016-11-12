@@ -1,0 +1,33 @@
+.ligar {
+  margin:auto;
+  margin-top:20px;
+  background:gray;
+  border-radius:5px;
+  color:white;
+  cursor:pointer;
+  font-family:Roboto,sans-serif;
+  font-size:1.9em;
+  height:65px;
+  letter-spacing:.2px;
+  line-height:65px;
+  text-align:center;
+  user-select:none;
+  width:150px;
+  transition:none;
+}
+
+.ligar:hover {
+  background:green;
+}
+.imagem{
+    margin:auto;
+    width: 100px;
+}
+.seletorCor{
+    margin:auto;
+    width: 300px;
+}
+
+svg {
+    width: 100%;
+}
