@@ -11,5 +11,5 @@
   "background_color": "#F5F5F5",
   "display": "standalone",
   "orientation": "portrait",
-  "start_url": "index.html"
+  "start_url": "/lampada/index.html"
 }
