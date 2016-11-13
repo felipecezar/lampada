@@ -13,14 +13,7 @@ let cor = document.querySelector('#cor')
 
 function conectar(){
 
-    if (conectado) {
-       dispositivoBluetooth.gatt.disconnect()
-       botao.textContent= 'Conectar'
-       conectado = false
-       setCor(0,0,0)
-       console.log('Dispositivo desconectado');
-     }
-     if(!conectado){
+    if(!conectado){
         //console.log('Solicitando conecão com dispositivo bluetooth...')
         navigator.bluetooth.requestDevice(
             {
@@ -53,8 +46,6 @@ function conectar(){
             })
     }
 
-
-
 }
 
 //seleção de cor
@@ -63,7 +54,7 @@ var img = new Image()
 img.crossOrigin = ''
 
 
-img.src = 'cores7.png'
+img.src = 'imagens/cores7.png'
 img.onload = function() {
     let canvas = document.querySelector('canvas')
     let context = canvas.getContext('2d')
