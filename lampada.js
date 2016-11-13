@@ -11,6 +11,7 @@ let btDesconectar = document.querySelector('#bt-desconectar')
 let imgSeletorCor = document.querySelector('#img-seletorCor')
 
 btConectar.addEventListener("click", conectar)
+btDesconectar.addEventListener("click", desconectar)
 
 let corLampada = document.querySelector('#corLampada')
 
@@ -54,8 +55,25 @@ function conectar(){
 
 }
 
-//seleção de cor
+function desconectar(){
+    if (!dispositivoBluetooth) {
+       return;
+     }
+     if (dispositivoBluetooth.gatt.connected) {
+        conectado = false
+        corLampada.style.fill = '#000'
+        setCor(0,0,0)
+        dispositivoBluetooth.gatt.disconnect()
 
+        console.log('Dispositivo desconectado')
+
+        btDesconectar.classList.add('esconder')
+        btConectar.classList.remove('esconder')
+        imgSeletorCor.classList.add('esconder')
+     }
+}
+
+//seleção de cor
 var img = new Image()
 img.crossOrigin = ''
 
@@ -86,7 +104,8 @@ img.onload = function() {
 
         let corHex =  '#' + rgb2Hex(r,g,b)
         corLampada.style.fill = corHex
-        ?conectado:setCor(r,g,b)
+
+        setCor(r,g,b)
 
 
         context.beginPath()

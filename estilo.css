@@ -1,3 +1,17 @@
+body {
+  margin: 0 auto;
+  background-color: #333;
+  max-width: 300px;
+  font-family: Roboto;
+  color: white;
+}
+
+canvas {
+  margin-top: 20px;
+  cursor: crosshair;
+}
+
+
 .botao{
   margin:auto;
   margin-top:20px;
