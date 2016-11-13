@@ -8,7 +8,7 @@ let conectado = false
 
 let btConectar = document.querySelector('#bt-conectar')
 let btDesconectar = document.querySelector('#bt-desconectar')
-let imgSeletorCor = document.querySelector('#seletorCor')
+let imgSeletorCor = document.querySelector('#img-seletorCor')
 
 btConectar.addEventListener("click", conectar)
 
