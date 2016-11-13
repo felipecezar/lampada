@@ -1,16 +1,15 @@
-
 {
-  "short_name": "LAMPADA",
-  "name": "LAMPADA Bluetooth 4",
-  "background_color": "#333333",
-  "theme_color": "#333333",
+  "name": "Lampada BLE",
+  "sort_name": "Lampada Bluetooth",
   "icons": [
     {
-      "src": "images/favicon.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "icon.png",
+      "sizes": "192x192"
     }
   ],
+  "theme_color":"#3F51B5",
+  "background_color": "#F5F5F5",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "start_url": "index.html"
 }
