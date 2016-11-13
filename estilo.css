@@ -1,4 +1,4 @@
-.ligar {
+.botao {
   margin:auto;
   margin-top:20px;
   background:gray;
@@ -16,7 +16,7 @@
   transition:none;
 }
 
-.ligar:hover {
+.botao:hover {
   background:green;
 }
 .imagem{

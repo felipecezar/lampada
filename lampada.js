@@ -38,7 +38,6 @@ function conectar(){
                 ledCharacteristic = characteristic
                 console.log('Dispositivo conectado')
                 conectado = true
-                botao.textContent= 'Desconectar'
                 setCor(255,255,255)
             })
             .catch(error => {
