@@ -13,70 +13,83 @@ let cor = document.querySelector('#cor')
 
 function conectar(){
 
-    if(!conectado){
-        console.log('Solicitando conecão com dispositivo bluetooth...')
+    if (conectado) {
+       dispositivoBluetooth.gatt.disconnect()
+       botao.textContent= 'Conectar'
+       conectado = false
+       setCor(0,0,0)
+       console.log('Dispositivo desconectado');
+     }
+     if(!conectado){
+        //console.log('Solicitando conecão com dispositivo bluetooth...')
         navigator.bluetooth.requestDevice(
             {
                 filters: [{ services: [SERVICO_PRIMARIO_UUID] }]
             })
             .then(device => {
                 dispositivoBluetooth = device
-                console.log('> dispositivo encontrado ' + device.name)
-                console.log('Conectando ao servidor GATT...')
+                //console.log('> dispositivo encontrado ' + device.name)
+                //console.log('Conectando ao servidor GATT...')
                 return device.gatt.connect()
             })
             .then(server => {
-                console.log('Obtendo o serviço 0xffb2 - Controle da lampada...')
+                //console.log('Obtendo o serviço 0xffb2 - Controle da lampada...')
                 return server.getPrimaryService(SERVICO_PRIMARIO_UUID)
             })
             .then(service => {
-                console.log('Obtendo a caracteristica 0xffe9 - Controle da lampada...')
+                //console.log('Obtendo a caracteristica 0xffe9 - Controle da lampada...')
                 return service.getCharacteristic(CARACTERISTICA_ESCRITA_UUID)
             })
             .then(characteristic => {
-                console.log('Caracteristica encontrada!')
+                //console.log('Caracteristica encontrada!')
                 ledCharacteristic = characteristic
+                console.log('Dispositivo conectado')
                 conectado = true
                 botao.textContent= 'Desconectar'
+                setCor(255,255,255)
             })
             .catch(error => {
                 console.log('Argh! ' + error)
             })
     }
-    else{
-        botao.textContent= 'Conectar'
-    }
+
+
 
 }
 
 //seleção de cor
 
 var img = new Image()
-img.crossOrigin = "anonymous";
+img.crossOrigin = ''
 
 
-img.src = 'https://raw.githubusercontent.com/WebBluetoothCG/demos/gh-pages/playbulb-candle/color-wheel.png'
+img.src = 'cores7.png'
 img.onload = function() {
     let canvas = document.querySelector('canvas')
     let context = canvas.getContext('2d')
-    canvas.width = 300 * devicePixelRatio
-    canvas.height = 300 * devicePixelRatio
+    canvas.width = 300
+    canvas.height = 300
 
     canvas.addEventListener('click', desenha)
 
     function desenha(evt) {
         //redesenha a imagem caso o usuario tenha dado zoom
-        canvas.width = 300 * devicePixelRatio
-        canvas.height = 300 * devicePixelRatio
+        canvas.width = 300
+        canvas.height = 300
         context.drawImage(img, 0, 0, canvas.width, canvas.height)
 
         let rect = canvas.getBoundingClientRect()
-        let x = Math.round((evt.clientX - rect.left) * devicePixelRatio)
-        let y = Math.round((evt.clientY - rect.top) * devicePixelRatio)
-        let data = context.getImageData(x,y,1,1).data
+        let x = Math.round((evt.clientX - rect.left))
+        let y = Math.round((evt.clientY - rect.top))
+        var data = context.getImageData(x, y, 1, 1).data
+        console.log(data)
         r = data[0]
         g = data[1]
         b = data[2]
+
+
+
+
 
         let corHex =  '#' + rgb2Hex(r,g,b)
         cor.style.fill = corHex
@@ -110,7 +123,8 @@ function toHex(n) {
 }
 
 function setCor(vermelho, verde, azul) {
-    let data = new Uint8Array([azul, verde, vermelho, 0x00])
+
+    let data = new Uint8Array([azul, verde, vermelho, toHex(255)])
     return ledCharacteristic.writeValue(data)
         .catch(err => console.log('Erro ao escrever o valor na caracteristica! ', err))
 }
