@@ -6,10 +6,13 @@ const SERVICO_PRIMARIO_UUID = '0000ffb0-0000-1000-8000-00805f9b34fb'
 const CARACTERISTICA_ESCRITA_UUID = '0000ffb2-0000-1000-8000-00805f9b34fb'
 let conectado = false
 
-let botao = document.querySelector('#bt-conectar')
-botao.addEventListener("click", conectar)
+let btConectar = document.querySelector('#bt-conectar')
+let btDesconectar = document.querySelector('#bt-desconectar')
+let imgSeletorCor = document.querySelector('#seletorCor')
 
-let cor = document.querySelector('#cor')
+btConectar.addEventListener("click", conectar)
+
+let corLampada = document.querySelector('#corLampada')
 
 function conectar(){
 
@@ -39,6 +42,10 @@ function conectar(){
                 console.log('Dispositivo conectado')
                 conectado = true
                 setCor(255,255,255)
+                btConectar.classList.add('esconder')
+                btDesconectar.classList.remove('esconder')
+                imgSeletorCor.classList.remove('esconder')
+
             })
             .catch(error => {
                 console.log('Argh! ' + error)
@@ -77,13 +84,10 @@ img.onload = function() {
         g = data[1]
         b = data[2]
 
-
-
-
-
         let corHex =  '#' + rgb2Hex(r,g,b)
-        cor.style.fill = corHex
-        setCor(r,g,b)
+        corLampada.style.fill = corHex
+        ?conectado:setCor(r,g,b)
+
 
         context.beginPath()
         context.arc(x, y + 2, 10 * devicePixelRatio, 0, 2 * Math.PI, false)
@@ -95,8 +99,6 @@ img.onload = function() {
     }
 
     context.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-
 
 }
 
@@ -113,8 +115,7 @@ function toHex(n) {
 }
 
 function setCor(vermelho, verde, azul) {
-
-    let data = new Uint8Array([azul, verde, vermelho, toHex(255)])
-    return ledCharacteristic.writeValue(data)
-        .catch(err => console.log('Erro ao escrever o valor na caracteristica! ', err))
+        let data = new Uint8Array([azul, verde, vermelho, toHex(255)])
+        return ledCharacteristic.writeValue(data)
+            .catch(err => console.log('Erro ao escrever o valor na caracteristica! ', err))
 }

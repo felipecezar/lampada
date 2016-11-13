@@ -16,6 +16,10 @@
   transition:none;
 }
 
+.esconder{
+    display: none;
+}
+
 .botao:hover {
   background:green;
 }
